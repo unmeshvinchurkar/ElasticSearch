@@ -1,0 +1,63 @@
+
+{
+	"highlight": {
+		"pre_tags": [
+			"@kibana-highlighted-field@"
+		],
+		"post_tags": [
+			"@/kibana-highlighted-field@"
+		],
+		"fields": {
+			"*": {
+				
+			}
+		},
+		"require_field_match": false,
+		"fragment_size": 2147483647
+	},
+	"query": {
+		"bool": {
+			"must": {
+				"range": {
+					"date": {
+						"gte": 1468249143775,
+						"lte": 1484146743776,
+						"format": "epoch_millis"
+					}
+				}
+			},
+			"must_not": []
+		}
+	},
+	"size": 500,
+	"sort": {
+		"date": {
+			"order": "desc",
+			"unmapped_type": "boolean"
+		}
+	}],
+	"_source": {
+		"excludes": []
+	},
+	"aggs": {
+		"2": {
+			"date_histogram": {
+				"field": "date",
+				"interval": "1d",
+				"time_zone": "Asia/Kolkata",
+				"min_doc_count": 1
+			}
+		}
+	},
+	"stored_fields": [
+		"*"
+	],
+	"script_fields": {
+		
+	},
+	"docvalue_fields": [
+		"date",
+		"created",
+		"_timestamp"
+	]
+}

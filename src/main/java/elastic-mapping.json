@@ -1,0 +1,38 @@
+{
+	"Entity": {
+		"properties": {
+			"name": {
+				"type": "string",
+				"index": "not_analyzed"
+			},
+			"properties": {
+				"type": "text",
+				"store": "yes"
+			},
+			"comments": {
+				"type": "text",
+				"store": "yes"
+			},
+			"type": {
+				"type": "string",
+				"index": "not_analyzed"
+			},
+			"contentType": {
+				"type": "string",
+				"index": "not_analyzed"
+			},
+			"path": {
+				"type": "string",
+				"index": "not_analyzed"
+			},
+			"date": {
+				"type": "date",
+				"format": "strict_date_optional_time||epoch_millis"
+			},
+			"created": {
+				"type": "date",
+				"format": "strict_date_optional_time||epoch_millis"
+			}
+		}
+	}
+}

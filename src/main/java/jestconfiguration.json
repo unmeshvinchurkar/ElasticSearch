@@ -1,0 +1,13 @@
+{
+	"settings": {
+		"analysis": {
+			"analyzer": {
+				"my_analyzer": {
+					"type": "standard",
+					"stopwords_path": "english.txt",
+					"ignore_case": "true"
+				}
+			}
+		}
+	}
+}
