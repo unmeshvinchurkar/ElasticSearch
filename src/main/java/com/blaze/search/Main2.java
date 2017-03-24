@@ -40,14 +40,15 @@ public class Main2 {
 	public static void main(String[] args) {
 
 		String indexDir = "C:\\Users\\unmeshvinchurkar\\Desktop\\luceneIndex";
+	    String BLAZE_PROJ_PATH = "C:\\Users\\unmeshvinchurkar\\Desktop\\TestRepo\\PublishRepoWs\\Metaphors and Templates";
 
 		IndexManager indexmanager = SearchFactory.getIndexManager(SearchFactory.LUCENE_SEARCH);
 
-		//indexmanager.deleteIndex(indexDir);
+		indexmanager.deleteIndex(indexDir);
 
-	//	indexmanager.createIndex(indexDir);
+		indexmanager.createIndex(indexDir);
 
-		InstanceFileLoader loader = new InstanceFileLoader(InstanceFileContentParser.path);
+		InstanceFileLoader loader = new InstanceFileLoader(BLAZE_PROJ_PATH);
 		InstanceFileContentParser r = new InstanceFileContentParser(loader);
 		r.parseInstanceFiles();
 
@@ -70,8 +71,8 @@ public class Main2 {
 			}
 
 			IIndexReader reader = indexmanager.getIndexReader(indexDir);
-			String re = reader.runQueryString("national card");
-			System.out.println(re);
+			reader.runQueryString("national card");
+			// System.out.println(re);
 
 			reader.close();
 

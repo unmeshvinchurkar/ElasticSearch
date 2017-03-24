@@ -1,14 +1,15 @@
 package com.blaze.search.lucene;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexReader;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
+import org.apache.lucene.index.IndexableField;
 import org.apache.lucene.queryparser.flexible.standard.StandardQueryParser;
 import org.apache.lucene.queryparser.flexible.standard.config.StandardQueryConfigHandler.Operator;
 import org.apache.lucene.search.IndexSearcher;
@@ -16,7 +17,6 @@ import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
-import org.apache.lucene.util.Version;
 
 import com.blaze.SearchDocConstants;
 import com.blaze.search.IIndexReader;
@@ -40,9 +40,10 @@ public class LuceneIndexReader implements IIndexReader {
 	}
 
 	@Override
-	public String runQueryString(String queryString) throws IOException {
+	public List runQueryString(String queryString) throws IOException {
 
 		Query query = null;
+		List resultDocs = new ArrayList();
 
 		try {
 			query = queryParser.parse(queryString, SearchDocConstants.CONTENT);
@@ -53,12 +54,23 @@ public class LuceneIndexReader implements IIndexReader {
 		TopDocs hits = indexSearcher.search(query, 20);
 
 		for (ScoreDoc sd : hits.scoreDocs) {
-			Document d = indexSearcher.doc(sd.doc);
-			System.out.println(d.toString());
+			Document doc = indexSearcher.doc(sd.doc);
+			Map docMap = new HashMap();
 
+			List fields = doc.getFields();
+
+			docMap.put("score", String.valueOf(sd.score));
+			docMap.put("id", sd.doc);
+
+			for (int i = 0; i < fields.size(); i++) {
+				IndexableField field = (IndexableField) fields.get(i);
+				docMap.put(field.name(), field.stringValue());
+			}
+			resultDocs.add(docMap);
+			System.out.println(doc.toString());
 		}
 
-		return hits.toString();
+		return resultDocs;
 	}
 
 	@Override

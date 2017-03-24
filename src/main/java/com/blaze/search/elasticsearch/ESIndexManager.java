@@ -2,7 +2,6 @@ package com.blaze.search.elasticsearch;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Map;
 
 
 
