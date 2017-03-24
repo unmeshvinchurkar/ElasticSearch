@@ -38,7 +38,6 @@ public class Main3 {
 				writer.commit();
 				writer.close();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

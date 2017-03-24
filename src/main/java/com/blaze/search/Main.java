@@ -21,9 +21,9 @@ import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.index.query.QueryStringQueryBuilder.Operator;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 
+import com.blaze.parser.EntityLoader;
 import com.blaze.search.elasticsearch.DocumentManager;
 import com.blaze.search.elasticsearch.ESIndexManager;
-import com.blaze.search.elasticsearch.EntityLoader;
 import com.blaze.search.elasticsearch.JestClientBuilderFactory;
 
 import io.searchbox.client.JestClient;

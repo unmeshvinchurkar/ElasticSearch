@@ -19,7 +19,7 @@ import net.sf.json.JSONObject;
 
 public class InstanceFileContentParser {
 
-	public static String path = "C:\\Users\\unmeshvinchurkar\\Desktop\\TestRepo\\PublishRepoWs\\Metaphors and Templates";
+	private static String path = "C:\\Users\\unmeshvinchurkar\\Desktop\\TestRepo\\PublishRepoWs\\Metaphors and Templates";
 
 	private List<JSONObject> jsonDocs = new ArrayList<JSONObject>();
 	private InstanceFileLoader fileLoader = null;

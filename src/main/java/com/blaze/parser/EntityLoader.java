@@ -1,4 +1,4 @@
-package com.blaze.search.elasticsearch;
+package com.blaze.parser;
 
 
 import java.io.BufferedReader;

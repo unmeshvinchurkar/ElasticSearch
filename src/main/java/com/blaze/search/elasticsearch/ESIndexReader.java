@@ -48,8 +48,7 @@ public class ESIndexReader implements IIndexReader {
 		JestClient client = JestClientBuilderFactory.getInstance();
 		List resultDocs = new ArrayList();
 
-		String query = "{" + " \"query\": {" + "    \"query_string\": { "
-				+ "   \"query\": \" ( name:N?tion?l* OR   comments:cord~ ) AND  date:[2016-12-12 TO 2017-01-12 ]\" "
+		String query = "{" + " \"query\": {" + "    \"query_string\": { " + "   \"query\": \"" + queryString + "\" "
 				+ " }    } 	}";
 
 		Search.Builder searchBuilder = new Search.Builder(query).addIndex(indexName);
