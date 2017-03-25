@@ -2,6 +2,7 @@ package com.blaze.search.elasticsearch;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 
 import com.blaze.search.IIndexReader;
 import com.blaze.search.IIndexWriter;
@@ -18,8 +19,16 @@ import io.searchbox.indices.mapping.PutMapping;
 
 public class ESIndexManager implements IndexManager {
 
+	private Locale locale = Locale.US;
+
 	private static String _defaultSettings = "\"settings\" : {\n" + "        \"number_of_shards\" : 1,\n"
 			+ "        \"number_of_replicas\" : 1\n" + "    }\n";
+
+	public ESIndexManager(Locale locale) {
+		if (locale != null) {
+			this.locale = locale;
+		}
+	}
 
 	@Override
 	public IIndexReader getIndexReader(String name) throws IOException {

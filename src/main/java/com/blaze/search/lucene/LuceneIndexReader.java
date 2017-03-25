@@ -28,8 +28,10 @@ public class LuceneIndexReader implements IIndexReader {
 	private IndexSearcher indexSearcher = null;
 	private Analyzer analyzer = new StandardAnalyzer();
 	private StandardQueryParser queryParser = null;
+	
 
-	public LuceneIndexReader(IndexReader indexReader, Directory directory) {
+	public LuceneIndexReader(IndexReader indexReader, Directory directory, Analyzer analyzer) {
+		this.analyzer = analyzer;
 		this.indexReader = indexReader;
 		this.indexSearcher = new IndexSearcher(indexReader);
 		this.queryParser = new StandardQueryParser(analyzer);

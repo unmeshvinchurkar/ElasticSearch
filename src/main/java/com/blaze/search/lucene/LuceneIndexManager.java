@@ -3,6 +3,7 @@ package com.blaze.search.lucene;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -17,22 +18,33 @@ import org.apache.lucene.store.RAMDirectory;
 import com.blaze.search.IIndexReader;
 import com.blaze.search.IIndexWriter;
 import com.blaze.search.IndexManager;
+import com.blaze.search.SearchFactory;
 
 public class LuceneIndexManager implements IndexManager {
+
+	private Locale locale = Locale.US;
+
+	public LuceneIndexManager(Locale locale) {
+
+		if (locale != null) {
+			this.locale = locale;
+		}
+
+	}
 
 	public IIndexReader getIndexReader(String nameOrPath) throws IOException {
 
 		Path path = Paths.get(nameOrPath);
 		Directory index = FSDirectory.open(path);
 		IndexReader reader = DirectoryReader.open(index);
-		return new LuceneIndexReader(reader, index);
+		return new LuceneIndexReader(reader, index, SearchFactory.getAnalyzer(locale));
 	}
 
 	public IIndexWriter getIndexWriter(String nameOrPath) throws IOException {
 
 		Directory directory = null;
 		IndexWriter indexWriter = null;
-		Analyzer analyzer = new StandardAnalyzer();
+		Analyzer analyzer = SearchFactory.getAnalyzer(locale);
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		config.setCommitOnClose(true);
@@ -57,7 +69,7 @@ public class LuceneIndexManager implements IndexManager {
 
 		Directory directory = null;
 		IndexWriter indexWriter = null;
-		Analyzer analyzer = new StandardAnalyzer();
+		Analyzer analyzer = SearchFactory.getAnalyzer(locale);
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		config.setCommitOnClose(true);
@@ -117,7 +129,7 @@ public class LuceneIndexManager implements IndexManager {
 
 		Directory directory = null;
 		IndexWriter indexWriter = null;
-		Analyzer analyzer = new StandardAnalyzer();
+		Analyzer analyzer = SearchFactory.getAnalyzer(locale);
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		config.setCommitOnClose(true);
