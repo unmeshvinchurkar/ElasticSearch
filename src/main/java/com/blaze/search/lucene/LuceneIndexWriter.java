@@ -9,6 +9,7 @@ import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.RAMDirectory;
 
 import com.blaze.search.IIndexWriter;
 
@@ -34,8 +35,8 @@ public class LuceneIndexWriter implements IIndexWriter {
 		while (iter.hasNext()) {
 			String key = (String) iter.next();
 			String value = json.getString(key);
-			Field field =	new TextField(key, value, Store.YES);
-			
+			Field field = new TextField(key, value, Store.YES);
+
 			doc.add(field);
 		}
 		indexWriter.addDocument(doc);
@@ -51,7 +52,9 @@ public class LuceneIndexWriter implements IIndexWriter {
 		}
 
 		try {
-			directory.close();
+			if (!(directory instanceof RAMDirectory)) {
+				directory.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -71,8 +74,7 @@ public class LuceneIndexWriter implements IIndexWriter {
 
 	@Override
 	public void unlock() {
-		
-		
+
 	}
 
 }

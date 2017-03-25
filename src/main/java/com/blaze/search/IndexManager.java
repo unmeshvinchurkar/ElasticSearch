@@ -5,6 +5,8 @@ import java.io.IOException;
 public interface IndexManager {
 
 	public void createIndex(String name);
+	
+	public void createIndex(String nameOrPath, boolean inMemory);
 
 	public void deleteIndex(String indexName);
 

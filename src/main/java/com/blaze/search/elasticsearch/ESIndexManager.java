@@ -92,4 +92,9 @@ public class ESIndexManager implements IndexManager {
 		}
 	}
 
+	@Override
+	public void createIndex(String nameOrPath, boolean inMemory) {
+		
+	}
+
 }

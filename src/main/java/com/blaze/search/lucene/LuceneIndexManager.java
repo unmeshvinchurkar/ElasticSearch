@@ -12,6 +12,7 @@ import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.store.RAMDirectory;
 
 import com.blaze.search.IIndexReader;
 import com.blaze.search.IIndexWriter;
@@ -35,7 +36,7 @@ public class LuceneIndexManager implements IndexManager {
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		config.setCommitOnClose(true);
-		config.setOpenMode( IndexWriterConfig.OpenMode.CREATE_OR_APPEND );
+		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 
 		Path path = Paths.get(nameOrPath);
 
@@ -48,27 +49,42 @@ public class LuceneIndexManager implements IndexManager {
 	@Override
 	public void createIndex(String nameOrPath) {
 
+		createIndex(nameOrPath, false);
+	}
+
+	@Override
+	public void createIndex(String nameOrPath, boolean inMemory) {
+
 		Directory directory = null;
 		IndexWriter indexWriter = null;
 		Analyzer analyzer = new StandardAnalyzer();
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		config.setCommitOnClose(true);
-		config.setOpenMode( IndexWriterConfig.OpenMode.CREATE_OR_APPEND );
+		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 
 		Path path = Paths.get(nameOrPath);
 
 		try {
-			directory = FSDirectory.open(path);
+			if (inMemory) {
+				if (!LuceneInMemoryIndexCache.exist(nameOrPath)) {
+					directory = new RAMDirectory();
+					LuceneInMemoryIndexCache.addIndexMemory(nameOrPath, (RAMDirectory) directory);
+				} else {
+					directory = LuceneInMemoryIndexCache.getIndexMemory(nameOrPath);
+				}
+			} else {
+				directory = FSDirectory.open(path);
+			}
+
 			indexWriter = new IndexWriter(directory, config);
 			indexWriter.prepareCommit();
 			indexWriter.commit();
-			
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			
+
 			try {
 				indexWriter.close();
 			} catch (IOException e1) {
@@ -78,7 +94,7 @@ public class LuceneIndexManager implements IndexManager {
 				directory.close();
 			} catch (IOException e) {
 			}
-			
+
 			try {
 				analyzer.close();
 			} catch (Exception e) {
@@ -99,7 +115,7 @@ public class LuceneIndexManager implements IndexManager {
 
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		config.setCommitOnClose(true);
-		config.setOpenMode( IndexWriterConfig.OpenMode.CREATE_OR_APPEND );
+		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 		Path path = Paths.get(nameOrPath);
 
 		try {

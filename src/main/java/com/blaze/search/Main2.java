@@ -16,9 +16,9 @@ public class Main2 {
 
 		IndexManager indexmanager = SearchFactory.getIndexManager(SearchFactory.LUCENE_SEARCH);
 
-		indexmanager.deleteIndex(indexDir);
+		//indexmanager.deleteIndex(indexDir);
 
-		indexmanager.createIndex(indexDir);
+		indexmanager.createIndex(indexDir,true);
 
 		InstanceFileLoader loader = new InstanceFileLoader(BLAZE_PROJ_PATH);
 		InstanceFileContentParser r = new InstanceFileContentParser(loader);
@@ -38,7 +38,6 @@ public class Main2 {
 				writer.commit();
 				writer.close();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 

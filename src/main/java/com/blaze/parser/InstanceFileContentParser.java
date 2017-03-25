@@ -58,6 +58,7 @@ public class InstanceFileContentParser {
 
 					JSONObject json = new JSONObject();
 
+					json.put(SearchDocConstants.ID, file.getPath());
 					json.put(SearchDocConstants.NAME, file.getName());
 					json.put(SearchDocConstants.PATH, file.getAbsolutePath());
 					json.put(SearchDocConstants.BLAZE_TYPE, type);
