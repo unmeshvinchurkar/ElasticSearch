@@ -77,11 +77,10 @@ public class ESIndexManager implements IndexManager {
 				String mapping = Resources.toString(url, Charsets.UTF_8);
 				PutMapping putMapping = new PutMapping.Builder(name, "Entity", mapping).build();
 
-				// Map<String, String> settings =
-				// ImmutableSettings.builder().loadFromClasspath("jestconfiguration.json")
-				// .build().getAsMap();
+				String settings = "\"settings\": {  \"analysis\": {  \"analyzer\": \""
+						+ locale.getLanguage().toLowerCase() + "\"    }  }";
 
-				client.execute(new CreateIndex.Builder(name).build());
+				client.execute(new CreateIndex.Builder(name).settings(settings).build());
 
 				JestResult result = client.execute(putMapping);
 

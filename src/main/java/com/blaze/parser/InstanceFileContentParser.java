@@ -58,12 +58,14 @@ public class InstanceFileContentParser {
 
 					JSONObject json = new JSONObject();
 
+					json.put(SearchDocConstants._ID, file.getPath());
 					json.put(SearchDocConstants.ID, file.getPath());
 					json.put(SearchDocConstants.NAME, file.getName());
 					json.put(SearchDocConstants.PATH, file.getAbsolutePath());
 					json.put(SearchDocConstants.BLAZE_TYPE, type);
 					json.put(SearchDocConstants.CONTENT_TYPE, contentType);
 					json.put(SearchDocConstants.TYPE, SearchDocConstants.ENTITY_TYPE);
+					json.put(SearchDocConstants._TYPE, SearchDocConstants.ENTITY_TYPE);
 					json.put(SearchDocConstants.DATE, new Date().getTime());
 					json.put(SearchDocConstants.CONTENT,
 							loadFile(file).replaceAll("<.*?>", "").replaceAll("\\s{2,}", " "));
