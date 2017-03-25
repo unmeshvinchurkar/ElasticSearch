@@ -1,10 +1,11 @@
 {
 	"Entity": {
-		"properties": {
-		
-		    "_id" : {
+	
+	    "_id" : {
                 "path" : "id"
             },
+            
+		"properties": {	   
             
             "id": {
 				"type": "string",
