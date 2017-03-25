@@ -16,7 +16,7 @@ public class Main2 {
 
 		IndexManager indexmanager = SearchFactory.getIndexManager(SearchFactory.LUCENE_SEARCH);
 
-		//indexmanager.deleteIndex(indexDir);
+		indexmanager.deleteIndex(indexDir);
 
 		indexmanager.createIndex(indexDir,true);
 

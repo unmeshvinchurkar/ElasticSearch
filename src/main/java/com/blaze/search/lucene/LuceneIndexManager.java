@@ -67,7 +67,7 @@ public class LuceneIndexManager implements IndexManager {
 
 		try {
 			if (inMemory) {
-				if (!LuceneInMemoryIndexCache.exist(nameOrPath)) {
+				if (!LuceneInMemoryIndexCache.exists(nameOrPath)) {
 					directory = new RAMDirectory();
 					LuceneInMemoryIndexCache.addIndexMemory(nameOrPath, (RAMDirectory) directory);
 				} else {
@@ -109,6 +109,12 @@ public class LuceneIndexManager implements IndexManager {
 			return;
 		}
 
+		if (LuceneInMemoryIndexCache.exists(nameOrPath)) {
+			LuceneInMemoryIndexCache.deleteIndexMemory(nameOrPath);
+			return;
+
+		}
+
 		Directory directory = null;
 		IndexWriter indexWriter = null;
 		Analyzer analyzer = new StandardAnalyzer();
@@ -144,6 +150,11 @@ public class LuceneIndexManager implements IndexManager {
 
 	@Override
 	public boolean exists(String nameOrPath) {
+
+		if (LuceneInMemoryIndexCache.exists(nameOrPath)) {
+			return true;
+		}
+
 		Directory directory = null;
 		IndexReader reader = null;
 		try {

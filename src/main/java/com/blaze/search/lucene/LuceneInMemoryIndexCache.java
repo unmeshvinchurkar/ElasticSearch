@@ -18,13 +18,13 @@ public class LuceneInMemoryIndexCache {
 	}
 
 	public static void deleteIndexMemory(String indexName) {
-		if (exist(indexName)) {
+		if (exists(indexName)) {
 			RAMDirectory dir = (RAMDirectory) indexCache.remove(indexName);
 			dir.close();
 		}
 	}
 
-	public static boolean exist(String indexName) {
+	public static boolean exists(String indexName) {
 		return indexCache.get(indexName) != null;
 	}
 

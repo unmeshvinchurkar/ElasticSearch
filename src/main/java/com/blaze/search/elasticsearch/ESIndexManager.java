@@ -3,8 +3,6 @@ package com.blaze.search.elasticsearch;
 import java.io.IOException;
 import java.net.URL;
 
-
-
 import com.blaze.search.IIndexReader;
 import com.blaze.search.IIndexWriter;
 import com.blaze.search.IndexManager;
@@ -94,7 +92,7 @@ public class ESIndexManager implements IndexManager {
 
 	@Override
 	public void createIndex(String nameOrPath, boolean inMemory) {
-		
+		createIndex(nameOrPath);
 	}
 
 }
